@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+<xs:element name="football">
+  <xs:element name="competition" maxOccurs="unbounded">
+	<xs:complexType>
+	  <xs:attribute name="host" use="optional"/>
+	  <xs:sequence>
+	    <xs:element name="season" maxOccurs="unbounded">
+	      <xs:complexType>
+			<xs:sequence>
+	          <xs:element name="match" maxOccurs="unbounded">
+	            <xs:complexType>
+				  <!--  MATCH attributes  -->
+				  <xs:attribute name="stage" use="optional"/>
+				  <xs:attribute name="id" use="required"/>
+				  <!--  DATE  -->
+				  <xs:element name="date" minOccurs="1" maxOccurs="1"/>
+				  <!--  STADIUM  -->
+				  <xs:element name="stadium" minOccurs="1" maxOccurs="1">
+				    <xs:attribute name="city" use="optional"/>
+					<xs:attribute name="country" use="optional"/>
+		          </xs:element>
+				  <!--  ATTENDANCE  -->
+				  <xs:element name="attendance" minOccurs="1" maxOccurs="1"/>
+				  <!--  REFEREES  -->
+				  <xs:element name="referees" minOccurs="1" maxOccurs="1">
+				    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="referee" minOccurs="1" maxOccurs="unbounded">
+                          <xs:complexType >
+                            <xs:sequence>
+                              <xs:element name="name" minOccurs="1" maxOccurs="unbounded">
+							    <xs:attribute name="country" use="optional"/>
+							  </xs:element>
+                            </xs:sequence>
+                            <xs:attribute name="role" use="required">
+                              <xs:simpleType >
+                                <xs:restriction base="xs:string">
+                                  <xs:enumeration value="main"/>
+                                  <xs:enumeration value="linesman"/>     
+                                  <xs:enumeration value="auxiliar"/> 
+                                  <xs:enumeration value="var"/> 
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:attribute>
+                          </xs:complexType> 
+                        </xs:element>
+                      </xs:sequence>
+					</xs:complexType>
+				  </xs:element>
+				  <!--  GOALS  -->
+				  <xs:element name="goals" minOccurs="0" maxOccurs="1">
+				    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="goal" minOccurs="0" maxOccurs="unbounded">
+                          <xs:complexType>
+                            <xs:element name="team" minOccurs="1" maxOccurs="1"/>
+          			        <xs:element name="player" minOccurs="1" maxOccurs="1">
+							  <xs:complexType>
+							    <xs:attribute name="number" use="required"/>
+							  </xs:complexType>
+							</xs:element>
+							<xs:element name="minute" minOccurs="1" maxOccurs="1"/>
+                            <xs:attribute name="qualifier" use="optional">
+                              <xs:simpleType >
+                                <xs:restriction base="xs:string">
+                                  <xs:enumeration value="OG"/>
+                                  <xs:enumeration value="PK"/>     
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:attribute>
+                          </xs:complexType> 
+                        </xs:element>
+                      </xs:sequence>
+					</xs:complexType>
+				  </xs:element>
+				  <!--  CARDS  -->
+				  <xs:element name="cards" minOccurs="0" maxOccurs="1">
+				    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="card" minOccurs="0" maxOccurs="unbounded">
+                          <xs:complexType>
+                            <xs:element name="color" minOccurs="1" maxOccurs="1">
+							  <xs:simpleType >
+                                <xs:restriction base="xs:string">
+                                  <xs:enumeration value="yellow"/>
+                                  <xs:enumeration value="red"/>     
+                                </xs:restriction>
+                              </xs:simpleType>
+							</xs:element>
+							<xs:element name="team" minOccurs="1" maxOccurs="1"/>
+          			        <xs:element name="player" minOccurs="1" maxOccurs="1">
+							  <xs:complexType>
+							    <xs:attribute name="number" use="required"/>
+							  </xs:complexType>
+							</xs:element>
+							<xs:element name="minute" minOccurs="1" maxOccurs="1"/>
+                          </xs:complexType> 
+                        </xs:element>
+                      </xs:sequence>
+					</xs:complexType>
+				  </xs:element>
+				  <!--  SUBS  -->
+				  <xs:element name="substitutions" minOccurs="0" maxOccurs="1">
+				    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="substitution" minOccurs="0" maxOccurs="unbounded">
+                          <xs:complexType>
+							<xs:element name="team" minOccurs="1" maxOccurs="1"/>
+          			        <xs:element name="playerin" minOccurs="1" maxOccurs="1">
+							  <xs:complexType>
+							    <xs:attribute name="number" use="required"/>
+							  </xs:complexType>
+							</xs:element>
+							<xs:element name="playerout" minOccurs="1" maxOccurs="1">
+							  <xs:complexType>
+							    <xs:attribute name="number" use="required"/>
+							  </xs:complexType>
+							</xs:element>
+							<xs:element name="minute" minOccurs="1" maxOccurs="1"/>
+                          </xs:complexType> 
+                        </xs:element>
+                      </xs:sequence>
+					</xs:complexType>
+				  </xs:element>
+				  <!--  TEAMS  -->
+				  <xs:element name="teams" minOccurs="1" maxOccurs="1">
+				    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="team" minOccurs="2" maxOccurs="2">
+                          <xs:complexType>
+						    <!--  team name  -->
+						    <xs:element name="name" minOccurs="1" maxOccurs="1">
+						      <xs:complexType>
+							    <xs:attribute name="country" use="optional"/>
+							  </xs:complexType>
+						    </xs:element>
+						    <!--  line up  -->
+						    <xs:element name="lineup" minOccurs="1" maxOccurs="1">
+							  <xs:complexType>
+							    <xs:sequence>
+								  <xs:element name="player" minOccurs="11" maxOccurs="11">
+								    <xs:complexType>
+								      <xs:attribute name="number" use="required"/>
+									</xs:complexType>
+								  </xs:element>
+								</xs:sequence>
+							  </xs:complexType>
+							</xs:element>
+							<!--  substitutes  -->
+						    <xs:element name="substitutes" minOccurs="1" maxOccurs="1">
+							  <xs:complexType>
+							    <xs:sequence>
+								  <xs:element name="player" minOccurs="0" maxOccurs="unbounded">
+								    <xs:complexType>
+								      <xs:attribute name="number" use="required"/>
+									</xs:complexType>
+								  </xs:element>
+								</xs:sequence>
+							  </xs:complexType>
+							</xs:element>
+							<!--  manager  -->
+						    <xs:element name="manager" minOccurs="0" maxOccurs="1"/>
+                          </xs:complexType> 
+                        </xs:element>
+                      </xs:sequence>
+					</xs:complexType>
+				  </xs:element>
+				  <!--  SCORE  -->
+				  <xs:element name="matchscore" minOccurs="1" maxOccurs="1">
+				    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="score" minOccurs="1" maxOccurs="3">
+                          <xs:complexType >
+                            <xs:sequence>
+                              <xs:element name="team" minOccurs="2" maxOccurs="2">
+								    <xs:complexType>
+								      <xs:attribute name="goals" use="required"/>
+									</xs:complexType>
+								  </xs:element>
+                            </xs:sequence>
+                            <xs:attribute name="type" use="required">
+                              <xs:simpleType >
+                                <xs:restriction base="xs:string">
+                                  <xs:enumeration value="RT"/>
+                                  <xs:enumeration value="AET"/>     
+                                  <xs:enumeration value="PK"/> 
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:attribute>
+                          </xs:complexType> 
+                        </xs:element>
+                      </xs:sequence>
+					</xs:complexType>
+				  </xs:element>
+				  
+				  
+		        </xs:complexType>
+	          </xs:element>
+	        </xs:sequence>
+		  </xs:complexType>
+	    </xs:element>
+	  </xs:sequence>
+	</xs:complexType>
+  </xs:element>
+</xs:element>
+
+</xs:schema>
